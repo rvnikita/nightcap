@@ -18,20 +18,15 @@ The scoped card is what makes autonomous buying *safe*: minted at purchase time,
 ## Architecture
 
 - **Next.js (App Router) + TypeScript + Tailwind**, deployed to **Vercel** (public URL required by contest). Public **GitHub** repo (secrets only in env / Vercel env vars, never committed).
-- **Shared state**: server-side in-memory module `lib/store.ts` (current price, product, purchase record). Single low-traffic demo instance → reliable. Swap to Upstash (Vercel Marketplace) only if we see instance-split flakiness. As a belt-and-suspenders fallback the client also holds the authoritative price and can pass it to the tick call.
-- **Rain client** `lib/rain.ts` (ported from proven `scratchpad/prove.mjs`): `Api-Key` auth, RSA-OAEP `sessionid`, AES-GCM decrypt (decrypt optional — we only need `cardId` to authorize). Core `buy({ amountUSDCents, mccs })` = fund-once → mint scoped card → `simulate/transactions/authorize` → return {cardId, txnId, status, last4}.
-- **The agent**: rule-based autonomous decision (`price <= max && authorized && !purchased → buy`) with a short human-readable rationale line. Optional Claude enhancement for the rationale/decision when an LLM key is present (interface `lib/agent.ts` with rule-based default; NOT a blocker).
+- **Client-authoritative state** (`app/page.tsx`, `"use client"`). The single demo browser is the source of truth for price, cap, authorization, status, purchase, and the activity log. **Why:** Vercel serverless spreads requests across function instances, so server-side in-memory state does NOT survive between requests (an early version broke exactly this way — arm on instance A, tick on instance B saw nothing). Client-authoritative is 100% reliable for a single-browser demo and needs zero external store.
+- **The agent = the client poll loop.** Every ~1.8s: if authorized && price ≤ cap && not already bought → call the buy route once (`buyingRef` guards against overlap). Otherwise emit a throttled "still watching" log line. All the human-readable rationale lines are generated here.
+- **Rain client** `lib/rain.ts` (ported from proven `scratchpad/prove.mjs`): `Api-Key` auth, RSA-OAEP `sessionid`, AES-GCM decrypt available but unused (we only need `cardId` to authorize). Exposes `ensureCollateral`, `issueScopedCard`, `authorize`, `rainConfigured`.
 
-### API routes
-- `GET  /api/store` → `{ product, price, currency }` (what the tracker polls)
-- `POST /api/store/price` `{ price }` → merchant sets price
-- `GET  /api/tracker` → tracker config + status + purchase
-- `POST /api/tracker` `{ maxPriceUSD, authorized }` → configure watch
-- `POST /api/tracker/tick` → agent evaluates current price; if triggered, executes Rain buy (idempotent — one purchase per watch); returns full state + any new log lines
-- `POST /api/reset` → reset demo (clear purchase, price back to $50) for repeat runs
+### API route (stateless)
+- `POST /api/buy` `{ priceCents, capCents, mcc, merchant, title }` → the only server endpoint. Funds collateral, mints a scoped card capped at `capCents` and MCC-locked to `mcc`, authorizes at `priceCents`, and returns `{ status: "authorized", purchase } | { status: "declined", declinedReason } | { status: "error", error }`. Holds no state. This is where the real Rain transaction happens.
 
 ### Frontend
-- Single page `/` split into Store (left) and Tracker (right). Tracker polls `/api/tracker/tick` every ~2–3s while authorized. Live status feed shows: watching → price hit → minting scoped card → authorized → bought (with last4, txn id, cap). A reset button re-arms the demo.
+- Single page `/` split into Store (left, warm bookshop) and Tracker (right, Rain fintech). Presentational panels `components/StorePanel.tsx` / `components/TrackerPanel.tsx` take props + callbacks. Live status feed: watching → price hit → minting scoped card → authorized → bought (last4, txn id, cap). Reset button re-arms for repeat demos.
 
 ## Monad (optional bounty, non-blocking — build last)
 - viem + minimal Solidity `SpendLedger` receipt contract via Foundry on Monad testnet; write one receipt per purchase. Get RPC/chainId/faucet from the Monad workshop. Make writes non-blocking so a chain hiccup never breaks the Rain demo.
