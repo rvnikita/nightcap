@@ -47,6 +47,23 @@ One build can target all three: Rain for the card/payment rails, Monad for oncha
 3. **Public repo** — code lives in a public GitHub repo.
 4. **Be ready to demo** — pitching order = submission order; slides optional, the demo is the point.
 
+## Submission form — exact required fields (checked Aug 8, Encode dashboard → "Submit Now")
+
+Deadline **Sun Aug 9, 12:00 PM ET**. All fields below are marked **Required** unless noted.
+
+| Field | Status |
+|---|---|
+| Challenge Explanation (text — how you address the selected challenges) | ✍️ to write |
+| Submission Details (text — what you built, process, achievements) | ✍️ to write |
+| **Link to Code** | ✅ https://github.com/rvnikita/nightcap |
+| **Link to Presentation** (deck: Google Slides / DocSend / Canva) | ❌ **MISSING — no deck yet** |
+| **Link to Demo Video** (hosted URL, e.g. YouTube) | ❌ **MISSING — MP4 exists locally + in repo, needs hosting** |
+| **Live Demo Link** | ✅ https://nightcap-two.vercel.app |
+| Project Image (optional) | optional — can upload or auto-generate |
+| Relevant Files & Documents (optional, max 25 MB) | optional |
+
+Note: the event "rules of engagement" slide said slides were *optional*, but the Encode form marks **Link to Presentation as Required** — so a short deck is needed regardless.
+
 ## Judging process (matters for strategy)
 
 - Final submissions **Sunday 12:00 PM**; judges review submissions **privately** 12:00–3:00.
