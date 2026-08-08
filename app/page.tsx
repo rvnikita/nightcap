@@ -204,6 +204,7 @@ export default function Home() {
             tracker={state.tracker}
             storePriceCents={state.store.priceCents}
             productTitle={`${PRODUCT.title} — ${PRODUCT.author}`}
+            merchant={PRODUCT.merchant}
             log={state.log}
             polling={polling}
             onSetMax={setMax}
