@@ -30,8 +30,12 @@ The scoped card is what makes autonomous buying *safe*: minted at purchase time,
 ### Frontend
 - Single page `/` split into Store (left, warm bookshop) and Tracker (right, Rain fintech). Presentational panels `components/StorePanel.tsx` / `components/TrackerPanel.tsx` take props + callbacks. Live status feed: watching → price hit → minting scoped card → authorized → bought (last4, txn id, cap). Reset button re-arms for repeat demos.
 
-## Monad (optional bounty, non-blocking — build last)
-- viem + minimal Solidity `SpendLedger` receipt contract via Foundry on Monad testnet; write one receipt per purchase. Get RPC/chainId/faucet from the Monad workshop. Make writes non-blocking so a chain hiccup never breaks the Rain demo.
+## Monad (DONE — onchain receipts, mainnet)
+- **`SpendLedger` deployed to Monad MAINNET (chain 143)** at **`0xd435ecb4258b86cf36b0184bdef46cde27077efd`** (explorer: https://monadscan.com/address/0xd435ecb4258b86cf36b0184bdef46cde27077efd). Contract source `contracts/SpendLedger.sol`, compiled via `scripts/compile-contract.mjs` → `lib/monad/spendLedger.json`, deployed via `node --env-file=.env scripts/deploy-monad.mjs`.
+- After each Rain authorization, `POST /api/buy` calls `recordPurchase(...)` from a server wallet (`lib/monad.ts`, viem) — emits `PurchaseRecorded(agent, merchant, amountCents, capCents, mcc, rainTxnId, ts)`. Best-effort: a chain failure returns `onchainTxHash: null` and never blocks the sale.
+- UI: the scoped card renders a "Settled onchain · Monad ↗" link to `monadscan.com/tx/<hash>` (`lib/monad-config.ts` + `components/ScopedCard.tsx`).
+- Chain is env-configurable (`MONAD_CHAIN_ID`, `MONAD_RPC_URL`, `MONAD_EXPLORER`); mainnet was chosen because the venue faucet's per-IP cap blocked testnet MON, so we funded a throwaway deployer with ~1 real MON. Deployer/agent wallet `0xB3C26d7DBcbf84b359337466F938Ad79B1b614e7` (key in `.env`/Vercel only, never committed).
+- Verified live: e.g. Rain txn `a582d40a…` → Monad tx `0x446ba215…` confirmed in block 94311443.
 
 ## Build order (always keep something live)
 1. Scaffold + deploy to Vercel (lock the live URL). 2. `lib/rain` + `/api/store` + `/api/tracker/tick` real buy. 3. Two-panel UI with polling. 4. Design polish (two aesthetics). 5. README + demo GIF (Sun AM, judged privately). 6. Monad receipts.
