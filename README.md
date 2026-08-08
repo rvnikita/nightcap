@@ -2,7 +2,7 @@
 
 **Set your max price and go to sleep. The instant a deal drops, an AI agent buys it for you — on a single-use [Rain](https://www.rain.xyz) scoped card capped at exactly what you approved.** No human at checkout, and the card physically can't overpay or buy the wrong thing.
 
-🔗 **Live demo:** _<LIVE_URL>_ · **Repo:** _<REPO_URL>_
+🔗 **Live demo:** https://nightcap-two.vercel.app · **Repo:** https://github.com/rvnikita/nightcap
 
 ---
 

@@ -1,6 +1,8 @@
 # Nightcap — architectural map
 
 > Entry point for Claude. The pitch/why lives in `docs/concept.md`; design in `docs/design.md`; verified Rain API mechanics in `docs/rain-api.md`; event/judging context in `docs/hackathon.md`.
+>
+> **Live:** https://nightcap-two.vercel.app · **Repo:** https://github.com/rvnikita/nightcap (public) · **Vercel project:** `nightcap` (auto-deploys on push to `master`).
 
 ## What it is
 
