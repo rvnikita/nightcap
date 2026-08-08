@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts (variables provided by next/font in layout.tsx) */
+  --font-fraunces: var(--font-fraunces);
+  --font-newsreader: var(--font-newsreader);
+  --font-grotesk: var(--font-grotesk);
+  --font-mono: var(--font-mono);
+
+  /* ── Store world (warm, literary — inspired by the Eothen cover) ── */
+  --color-paper: #f6efe1;
+  --color-paper-2: #efe4cf;
+  --color-ink: #241a10;
+  --color-ink-soft: #6f5c45;
+  --color-amber: #e6a24c;
+  --color-coral: #d3623b;
+  --color-teal: #2f6b6b;
+  --color-navy: #1f2d44;
+
+  /* ── Tracker world (Rain fintech — cool, precise) ── */
+  --color-mist: #eef0ff;
+  --color-mist-2: #f6f7ff;
+  --color-lav: #e6e8fb;
+  --color-lav-2: #dfe2fa;
+  --color-rain: #f5426c;
+  --color-rain-deep: #d81e5b;
+  --color-slate: #262a44;
+  --color-slate-soft: #6b7192;
+  --color-line: #d9ddf5;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-navy);
+  color: var(--color-ink);
+  font-family: var(--font-grotesk), system-ui, sans-serif;
+}
+
+/* Sunset gradient pulled from the book cover */
+.sunset {
+  background: linear-gradient(
+    180deg,
+    #f0b45a 0%,
+    #e79049 22%,
+    #d3623b 42%,
+    #7a5a5f 62%,
+    #3a4a63 80%,
+    #1f2d44 100%
+  );
+}
+
+/* Paper feel via layered gradients */
+.paper {
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(230, 162, 76, 0.08), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(47, 107, 107, 0.06), transparent 45%);
+}
+
+.mist {
+  background-color: var(--color-mist);
+  background-image:
+    radial-gradient(60% 60% at 80% 0%, rgba(245, 66, 108, 0.06), transparent 60%),
+    radial-gradient(50% 50% at 0% 100%, rgba(120, 130, 246, 0.08), transparent 60%);
+}
+
+/* animations */
+@keyframes ping-soft {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  75%, 100% { transform: scale(1.9); opacity: 0; }
+}
+.ping-soft::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: ping-soft 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes mint-in {
+  0% { transform: translateY(8px) scale(0.96); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.mint-in { animation: mint-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes rise {
+  0% { transform: translateY(6px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.rise { animation: rise 0.35s ease both; }
+
+.tabular { font-variant-numeric: tabular-nums; }
