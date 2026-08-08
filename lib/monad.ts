@@ -2,7 +2,7 @@ import { createWalletClient, defineChain, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import artifact from "./monad/spendLedger.json";
 
-// Server-side Monad testnet client. Writes an onchain receipt per autonomous
+// Server-side Monad client (defaults to mainnet, chain 143; configurable via env). Writes an onchain receipt per autonomous
 // purchase to the SpendLedger contract. Best-effort: never blocks the Rain buy.
 
 const RPC = process.env.MONAD_RPC_URL || "https://rpc.monad.xyz";

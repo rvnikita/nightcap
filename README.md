@@ -1,12 +1,12 @@
 # Nightcap — the price tracker that actually buys
 
-**Set your max price and go to sleep. The instant a deal drops, an AI agent buys it for you — on a single-use [Rain](https://www.rain.xyz) scoped card capped at exactly what you approved.** No human at checkout, and the card physically can't overpay or buy the wrong thing.
+**Set your max price and go to sleep. The instant a deal drops, an AI agent buys it for you — on a single-use [Rain](https://www.rain.xyz) scoped card capped at exactly what you approved.** No human at checkout — the card is issued for that one purchase, locked to the merchant's category, and retires after a single use.
 
 🔗 **Live demo:** https://nightcap-two.vercel.app · 📊 **[Presentation](https://nightcap-two.vercel.app/deck)** · ▶️ **[Watch the 1-min explainer](https://nightcap-two.vercel.app/nightcap-demo.mp4)**
 
 [![Nightcap in action — the price drops and the agent buys on a scoped Rain card, settled onchain on Monad](media/demo.gif)](https://nightcap-two.vercel.app/nightcap-demo.mp4)
 
-*The store drops the price below your limit → the agent mints a single-use Rain scoped card and completes the purchase → the receipt is settled onchain on Monad. Real sandbox transactions, real onchain writes.*
+*The store drops the price below your limit → the agent mints a single-use Rain scoped card and completes the purchase → a receipt is written onchain to Monad. Real Rain sandbox transactions, real Monad mainnet writes.*
 
 ---
 
@@ -20,7 +20,7 @@ The demo is one page with two connected systems:
 
 ## How it maps to the challenge
 
-- **Best use of Rain** — every purchase is a real **Rain scoped virtual card**, minted at buy-time via the sandbox API, **capped** at the user's max price and **MCC-locked** to book stores (5942). Controls are enforced by Rain at authorization; the card is **single-use** and auto-retires after one charge.
+- **Best use of Rain** — every purchase is a real **Rain scoped virtual card**, minted at buy-time via the sandbox API with the spend cap set at issuance (`amountInUSDCents`) and **MCC-locked** to book stores (`allowedMccs: ["5942"]`). Rain enforces the MCC lock and single-use retirement at authorization — both verified live (a wrong-category charge returns `scoped_card_mcc_not_allowed`; a replay on a used card is refused). Our own policy layer additionally refuses any over-cap request before it reaches Rain.
 - **General track (agent transacts autonomously)** — a software agent decides and **completes a card transaction with no human at checkout**, the instant its pre-authorized condition is met.
 - Embodies Rain's thesis directly: *the person sets the boundary once; the agent operates inside it; no human at checkout.*
 
@@ -31,7 +31,7 @@ Nobody lets a bot hold their real credit card — one bug or bad price and it dr
 ## How it works
 
 ```
-Merchant changes price ──► /api/store (the tracker polls this every ~2s)
+Merchant changes price ──► tracker polls the store price every ~2s
                                    │
                      price ≤ your max & authorized?
                                    │  yes
@@ -45,7 +45,7 @@ Merchant changes price ──► /api/store (the tracker polls this every ~2s)
                           status: authorized  ──►  "Bought while you slept"
 ```
 
-Scoped-card issuance returns encrypted PAN/CVC (RSA-OAEP session key + AES-GCM); we only need the `cardId` to authorize, so we never decrypt real card numbers. Rain client: [`lib/rain.ts`](lib/rain.ts). Agent loop: [`lib/agent.ts`](lib/agent.ts).
+Scoped-card issuance returns encrypted PAN/CVC (RSA-OAEP session key + AES-GCM); we only need the `cardId` to authorize, so we never decrypt real card numbers. Rain client: [`lib/rain.ts`](lib/rain.ts). Agent decision loop: [`app/page.tsx`](app/page.tsx).
 
 ## Real transaction (from the sandbox, not a mock)
 
@@ -74,7 +74,7 @@ Required env (see `.env.example`): `RAIN_API_BASE`, `RAIN_API_KEY`, `RAIN_USER_I
 
 ## Notes
 
-Sandbox only; guardrails are real (wrong-MCC and replay on a used card are declined by Rain at authorization). Architecture map in [`spec.md`](spec.md); concept and problem framing in [`docs/concept.md`](docs/concept.md); verified API mechanics in [`docs/rain-api.md`](docs/rain-api.md).
+Sandbox only (no real money moves through Rain). The guardrails are real and verified: a wrong-MCC charge and a replay on a used card are both declined by Rain at authorization. Note the sandbox does not reliably decline an over-cap authorization, so we enforce the cap in our policy layer too — see [`docs/rain-api.md`](docs/rain-api.md) for exactly what we tested. Architecture map in [`spec.md`](spec.md); verified API mechanics in [`docs/rain-api.md`](docs/rain-api.md).
 
 ## Team & contact
 

@@ -35,3 +35,6 @@ next-env.d.ts
 
 # scratch
 temp_scripts/
+
+# Private strategy notes — never publish
+.local/

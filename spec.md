@@ -1,6 +1,6 @@
 # Nightcap — architectural map
 
-> Entry point for Claude. The pitch/why lives in `docs/concept.md`; design in `docs/design.md`; verified Rain API mechanics in `docs/rain-api.md`; event/judging context in `docs/hackathon.md`.
+> Entry point. Design in `docs/design.md`; verified Rain API mechanics in `docs/rain-api.md`; submission copy in `docs/submission.md`.
 >
 > **Live:** https://nightcap-two.vercel.app · **Repo:** https://github.com/rvnikita/nightcap (public) · **Vercel project:** `nightcap` (auto-deploys on push to `master`).
 
@@ -8,14 +8,14 @@
 
 **Nightcap — the price tracker that actually buys.** A one-page demo with **two visually distinct panels**:
 
-- **Left — the Store** (a bookshop selling the book *Eothen*). Has an editable **price** the presenter changes live. This simulates a merchant dropping the price (e.g. overnight). Design: inspired by the *Eothen* book cover (warm, literary). Exposes a real endpoint the tracker polls.
+- **Left — the Store** (a bookshop selling the book *Eothen*). Has an editable **price** the presenter changes live. This simulates a merchant dropping the price (e.g. overnight). Design: inspired by the *Eothen* book cover (warm, literary).
 - **Right — the Tracker** (Rain-styled). The user sets a **max price** and flips **"Authorize autonomous purchase."** It then **polls the store every X seconds**. The instant `storePrice <= maxPrice`, an autonomous agent **buys via a real Rain scoped card** (capped at the max price, locked to the bookstore MCC, single-use) and shows the receipt — almost immediately.
 
 **Live demo flow:** price starts $50, tracker max $40 + authorized → nothing happens. Presenter changes store price to $35 → within one poll cycle the tracker fires, mints a scoped card, authorizes the purchase, and flips to **"Bought — $35, under your $40 cap."**
 
 ## Why it's a Rain project (not just a script)
 
-The scoped card is what makes autonomous buying *safe*: minted at purchase time, capped at the approved amount, locked to `allowedMccs` (book stores = **5942**), single-use and auto-retired. The agent physically cannot overpay or buy the wrong category — Rain enforces it at authorization. See `docs/concept.md`.
+The scoped card is what makes autonomous buying *safe*: minted at purchase time, capped at the approved amount, locked to `allowedMccs` (book stores = **5942**), single-use and auto-retired. The card is issued with the cap set at creation; the MCC lock and single-use retirement are enforced by Rain at authorization (both verified — see `docs/rain-api.md`). Our policy layer additionally refuses any over-cap request before it reaches Rain.
 
 ## Architecture
 
@@ -38,7 +38,7 @@ The scoped card is what makes autonomous buying *safe*: minted at purchase time,
 - Verified live: e.g. Rain txn `a582d40a…` → Monad tx `0x446ba215…` confirmed in block 94311443.
 
 ## Build order (always keep something live)
-1. Scaffold + deploy to Vercel (lock the live URL). 2. `lib/rain` + `/api/store` + `/api/tracker/tick` real buy. 3. Two-panel UI with polling. 4. Design polish (two aesthetics). 5. README + demo GIF (Sun AM, judged privately). 6. Monad receipts.
+1. Scaffold + deploy to Vercel (lock the live URL). 2. `lib/rain` + `/api/buy` real purchase. 3. Two-panel UI with polling. 4. Design polish (two aesthetics). 5. README + demo GIF (Sun AM, judged privately). 6. Monad receipts.
 
 ## Product for the demo
 The book **_Eothen_ by A.W. Kingslake** (public-domain travelogue). Cover art (design reference) at `public/eothen-cover.png`. Starting price **$50.00**; demo drop target **$35.00**; tracker max **$40.00**; MCC **5942** (book stores).
