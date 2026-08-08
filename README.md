@@ -2,7 +2,9 @@
 
 **Set your max price and go to sleep. The instant a deal drops, an AI agent buys it for you — on a single-use [Rain](https://www.rain.xyz) scoped card capped at exactly what you approved.** No human at checkout, and the card physically can't overpay or buy the wrong thing.
 
-🔗 **Live demo:** https://nightcap-two.vercel.app · ▶️ **[Watch the 1-min explainer](media/nightcap-demo.mp4)**
+🔗 **Live demo:** https://nightcap-two.vercel.app · 📊 **[Presentation](https://nightcap-two.vercel.app/deck)** · ▶️ **[Full explainer video](media/nightcap-demo.mp4)**
+
+<video src="https://raw.githubusercontent.com/rvnikita/nightcap/master/media/nightcap-demo.mp4" controls muted playsinline width="100%"></video>
 
 ![Nightcap in action — the price drops and the agent buys on a scoped Rain card, settled onchain on Monad](media/demo.gif)
 
@@ -75,3 +77,12 @@ Required env (see `.env.example`): `RAIN_API_BASE`, `RAIN_API_KEY`, `RAIN_USER_I
 ## Notes
 
 Sandbox only; guardrails are real (wrong-MCC and replay on a used card are declined by Rain at authorization). Architecture map in [`spec.md`](spec.md); concept and problem framing in [`docs/concept.md`](docs/concept.md); verified API mechanics in [`docs/rain-api.md`](docs/rain-api.md).
+
+## Team & contact
+
+Built at the **Raingentic Commerce Hackathon NYC** (Aug 8–9, 2026) — Team 33.
+
+**Nikita Rvachev** — solo build (product, design, full stack, contract)
+📧 [nikita@rvachev.org](mailto:nikita@rvachev.org) · 🐙 [github.com/rvnikita](https://github.com/rvnikita) · 🌐 [rvachev.org](https://rvachev.org) · 💬 Discord `rvnikita`
+
+*Open to talking about agentic commerce, payments infrastructure, and what comes next — reach out any time.*
