@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { authorize, ensureCollateral, issueScopedCard, rainConfigured } from "@/lib/rain";
+import { recordPurchase } from "@/lib/monad";
 import type { Purchase } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -53,6 +54,16 @@ export async function POST(req: Request) {
         at: Date.now(),
         onchainTxHash: null,
       };
+
+      // Best-effort: settle a receipt onchain to Monad. Never blocks the sale.
+      purchase.onchainTxHash = await recordPurchase({
+        merchant,
+        amountCents: priceCents,
+        capCents,
+        mcc,
+        rainTxnId: purchase.transactionId,
+      });
+
       return NextResponse.json({ status: "authorized", purchase });
     }
 

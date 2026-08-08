@@ -1,0 +1,112 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agent",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "merchant",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint32",
+          "name": "amountCents",
+          "type": "uint32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint32",
+          "name": "capCents",
+          "type": "uint32"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "mcc",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "rainTxnId",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "timestamp",
+          "type": "uint64"
+        }
+      ],
+      "name": "PurchaseRecorded",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "count",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "merchant",
+          "type": "string"
+        },
+        {
+          "internalType": "uint32",
+          "name": "amountCents",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint32",
+          "name": "capCents",
+          "type": "uint32"
+        },
+        {
+          "internalType": "string",
+          "name": "mcc",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "rainTxnId",
+          "type": "string"
+        }
+      ],
+      "name": "recordPurchase",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080604052348015600e575f5ffd5b506102db8061001c5f395ff3fe608060405234801561000f575f5ffd5b5060043610610034575f3560e01c806306661abd14610038578063ca4e874e14610052575b5f5ffd5b6100405f5481565b60405190815260200160405180910390f35b610040610060366004610124565b5f5461006d8160016101e4565b5f55604051339082907fd826125d9fa1826696a8c7da84b83e636dbd0c7f102ba882f1eb8008d0625089906100b3908d908d908d908d908d908d908d908d904290610231565b60405180910390a398975050505050505050565b5f5f83601f8401126100d7575f5ffd5b50813567ffffffffffffffff8111156100ee575f5ffd5b602083019150836020828501011115610105575f5ffd5b9250929050565b803563ffffffff8116811461011f575f5ffd5b919050565b5f5f5f5f5f5f5f5f60a0898b03121561013b575f5ffd5b883567ffffffffffffffff811115610151575f5ffd5b61015d8b828c016100c7565b9099509750610170905060208a0161010c565b955061017e60408a0161010c565b9450606089013567ffffffffffffffff811115610199575f5ffd5b6101a58b828c016100c7565b909550935050608089013567ffffffffffffffff8111156101c4575f5ffd5b6101d08b828c016100c7565b999c989b5096995094979396929594505050565b8082018082111561020357634e487b7160e01b5f52601160045260245ffd5b92915050565b81835281816020850137505f828201602090810191909152601f909101601f19169091010190565b60c081525f61024460c083018b8d610209565b63ffffffff8a16602084015263ffffffff89166040840152828103606084015261026f81888a610209565b90508281036080840152610284818688610209565b91505067ffffffffffffffff831660a08301529a995050505050505050505056fea2646970667358221220f8179b99c8f63fd9351c8429388b5c08579b5b5ff3ac9feef7df643928473be664736f6c63430008240033"
+}

@@ -1,5 +1,6 @@
 import type { Purchase } from "@/lib/types";
 import { usd } from "@/lib/format";
+import { monadTxUrl } from "@/lib/monad-config";
 
 export function ScopedCard({ purchase }: { purchase: Purchase }) {
   return (
@@ -37,6 +38,23 @@ export function ScopedCard({ purchase }: { purchase: Purchase }) {
         </div>
         <div className="truncate font-mono text-[11px] text-white/90">{purchase.transactionId}</div>
       </div>
+
+      {purchase.onchainTxHash && (
+        <a
+          href={monadTxUrl(purchase.onchainTxHash)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 flex items-center justify-between rounded-lg bg-white/10 px-3 py-2 transition hover:bg-white/15"
+        >
+          <span className="flex items-center gap-2">
+            <span className="inline-block h-2 w-2 rounded-full bg-[#836EF9]" />
+            <span className="font-grotesk text-[11px] text-white/80">Settled onchain · Monad</span>
+          </span>
+          <span className="truncate pl-3 font-mono text-[11px] text-white/70">
+            {purchase.onchainTxHash.slice(0, 10)}…{purchase.onchainTxHash.slice(-6)} ↗
+          </span>
+        </a>
+      )}
     </div>
   );
 }

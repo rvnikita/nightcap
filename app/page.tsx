@@ -121,6 +121,9 @@ export default function Home() {
           "approved",
           `Bought "${PRODUCT.title}" for ${usd(data.purchase.amountCents)} on card ••••${data.purchase.last4}. Card retired. You saved ${usd(cap - data.purchase.amountCents)} vs your cap.`,
         );
+        if (data.purchase.onchainTxHash) {
+          log("info", `Receipt settled onchain on Monad · tx ${data.purchase.onchainTxHash.slice(0, 12)}…`);
+        }
       } else if (data.status === "declined") {
         setState((st) => ({ ...st, tracker: { ...st.tracker, status: "armed" } }));
         log("declined", `Rain declined the charge (${data.declinedReason}). The guardrail held — nothing was spent.`);
