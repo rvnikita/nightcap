@@ -162,7 +162,7 @@ export default function Home() {
   }, [attemptBuy, log]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-navy">
+    <div className="flex min-h-screen flex-col bg-navy lg:h-screen lg:overflow-hidden">
       <header className="flex items-center justify-between gap-4 px-6 py-3 text-paper">
         <div className="min-w-0">
           <span className="font-fraunces text-base font-semibold">Nightcap</span>
@@ -185,14 +185,18 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="grid flex-1 grid-cols-1 overflow-hidden lg:grid-cols-2 lg:rounded-t-2xl">
-        <StorePanel
-          product={PRODUCT}
-          priceCents={state.store.priceCents}
-          sold={state.store.sold}
-          onSetPrice={setPrice}
-        />
-        <div className="border-t border-navy/20 lg:border-l lg:border-t-0">
+      {/* Two independently-sized, independently-scrolling columns so the
+          store panel never reflows when the tracker's activity grows. */}
+      <main className="flex flex-1 flex-col lg:min-h-0 lg:flex-row lg:overflow-hidden lg:rounded-t-2xl">
+        <div className="lg:min-h-0 lg:w-1/2 lg:overflow-y-auto">
+          <StorePanel
+            product={PRODUCT}
+            priceCents={state.store.priceCents}
+            sold={state.store.sold}
+            onSetPrice={setPrice}
+          />
+        </div>
+        <div className="border-t border-navy/20 lg:min-h-0 lg:w-1/2 lg:overflow-y-auto lg:border-l lg:border-t-0">
           <TrackerPanel
             tracker={state.tracker}
             storePriceCents={state.store.priceCents}
