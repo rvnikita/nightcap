@@ -2,11 +2,9 @@
 
 **Set your max price and go to sleep. The instant a deal drops, an AI agent buys it for you — on a single-use [Rain](https://www.rain.xyz) scoped card capped at exactly what you approved.** No human at checkout, and the card physically can't overpay or buy the wrong thing.
 
-🔗 **Live demo:** https://nightcap-two.vercel.app · 📊 **[Presentation](https://nightcap-two.vercel.app/deck)** · ▶️ **[Full explainer video](media/nightcap-demo.mp4)**
+🔗 **Live demo:** https://nightcap-two.vercel.app · 📊 **[Presentation](https://nightcap-two.vercel.app/deck)** · ▶️ **[Watch the 1-min explainer](https://nightcap-two.vercel.app/nightcap-demo.mp4)**
 
-<video src="https://raw.githubusercontent.com/rvnikita/nightcap/master/media/nightcap-demo.mp4" controls muted playsinline width="100%"></video>
-
-![Nightcap in action — the price drops and the agent buys on a scoped Rain card, settled onchain on Monad](media/demo.gif)
+[![Nightcap in action — the price drops and the agent buys on a scoped Rain card, settled onchain on Monad](media/demo.gif)](https://nightcap-two.vercel.app/nightcap-demo.mp4)
 
 *The store drops the price below your limit → the agent mints a single-use Rain scoped card and completes the purchase → the receipt is settled onchain on Monad. Real sandbox transactions, real onchain writes.*
 
