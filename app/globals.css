@@ -95,3 +95,36 @@ body {
 .rise { animation: rise 0.35s ease both; }
 
 .tabular { font-variant-numeric: tabular-nums; }
+
+/* ── Deck: print / PDF export (one slide per landscape page) ── */
+@media print {
+  @page {
+    size: 1440px 810px;
+    margin: 0;
+  }
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
+    background: #1f2d44 !important;
+  }
+  main.deck-root {
+    height: auto !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+  }
+  .deck-slide {
+    min-height: 0 !important;
+    height: 810px !important;
+    break-after: page;
+    page-break-after: always;
+    scroll-snap-align: none !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .deck-slide:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+  .deck-nav { display: none !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}

@@ -24,7 +24,7 @@ function Slide({
   return (
     <section
       id={`s${n}`}
-      className="relative flex min-h-screen w-full snap-start flex-col justify-center px-8 py-20 md:px-20"
+      className="deck-slide relative flex min-h-screen w-full snap-start flex-col justify-center px-8 py-20 md:px-20"
       style={tint ? { background: tint } : undefined}
     >
       <div className="mx-auto w-full max-w-5xl">{children}</div>
@@ -51,7 +51,7 @@ const P = ({ children }: { children: React.ReactNode }) => (
 
 export default function Deck() {
   return (
-    <main className="h-screen snap-y snap-mandatory overflow-y-scroll bg-navy">
+    <main className="deck-root h-screen snap-y snap-mandatory overflow-y-scroll bg-navy">
       <DeckNav />
 
       {/* 1 — Title */}

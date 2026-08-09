@@ -52,7 +52,7 @@ export function DeckNav() {
   }, [active]);
 
   return (
-    <nav className="fixed right-5 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-2.5 md:flex">
+    <nav className="deck-nav fixed right-5 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-2.5 md:flex">
       {Array.from({ length: COUNT }, (_, i) => (
         <a
           key={i}
