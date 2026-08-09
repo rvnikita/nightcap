@@ -184,6 +184,11 @@ export default function Deck() {
           Live sandbox calls against Rain, and real writes to Monad mainnet. From an actual run in the deployed
           app:
         </P>
+        <p className="mt-4 max-w-3xl font-grotesk text-base text-paper/55">
+          The storefront in the demo stands in for the merchant — in production the agent monitors real
+          listings. Price discovery is the easy half; issuing bounded spending authority and completing an
+          unattended purchase is the half that didn&rsquo;t exist, and that&rsquo;s what&rsquo;s real here.
+        </p>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           <div className="rounded-2xl border border-rain/30 bg-rain/[0.07] p-6">
             <div className="font-grotesk text-xs uppercase tracking-[0.2em] text-rain">Rain</div>

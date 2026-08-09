@@ -15,8 +15,10 @@
 Price trackers like Keepa are great at *telling* you a price dropped — but the drop happens at 3am, and by the time you wake up the deal is gone. Nightcap watches for you and, the moment the price falls below your cap, an autonomous agent **completes the purchase** on a freshly-minted Rain scoped virtual card. You wake up owning it, not reading a "sold out" alert.
 
 The demo is one page with two connected systems:
-- **Left — a bookstore** selling *Eothen*, with a price the merchant changes live.
-- **Right — Nightcap**, a Rain-powered tracker. You set a max price, flip **Authorize autonomous purchase**, and it polls the store. Drop the store price below your cap and the agent buys within one poll cycle — on a real Rain sandbox transaction.
+- **Left — a bookstore** selling *Eothen*, with a price you can change live. This stands in for the merchant: in production the agent monitors real listings on the open web, but a controllable storefront lets you trigger the price drop on demand instead of waiting for one at 3am.
+- **Right — Nightcap**, the Rain-powered tracker. You set a max price, authorize the agent, and it watches. Drop the price below your cap and it buys within one poll cycle — on a real Rain sandbox transaction, with a real receipt written to Monad.
+
+What is deliberately *real* here is the part that's hard and risky: **issuing bounded spending authority and executing an unattended purchase.** Price discovery is the well-understood half; safe autonomous payment is the half that didn't exist.
 
 ## How it maps to the challenge
 
