@@ -4,7 +4,7 @@ import { DeckNav } from "./DeckNav";
 export const metadata: Metadata = {
   title: "Nightcap — deck",
   description:
-    "The price tracker that actually buys. Agentic commerce on Rain scoped cards, settled onchain on Monad.",
+    "The price tracker that actually buys. Agentic commerce on Rain scoped cards, with every purchase receipted onchain on Monad.",
 };
 
 const LIVE = "https://nightcap-two.vercel.app";
@@ -70,7 +70,7 @@ export default function Deck() {
         </p>
         <p className="mt-10 max-w-2xl font-grotesk text-lg text-paper/60">
           An AI agent that completes the purchase the moment your price hits — on a single-use{" "}
-          <strong className="text-paper">Rain</strong> scoped card, settled onchain on{" "}
+          <strong className="text-paper">Rain</strong> scoped card, receipted onchain on{" "}
           <strong className="text-paper">Monad</strong>.
         </p>
         <div className="mt-10 flex flex-wrap gap-3 font-grotesk text-sm">
@@ -84,7 +84,7 @@ export default function Deck() {
             GitHub ↗
           </a>
           <a
-            href={`${LIVE}/nightcap-demo.mp4`}
+            href="https://youtu.be/wKuJl1O6kAo"
             className="rounded-full border border-paper/25 px-5 py-2.5 text-paper/80 hover:bg-paper/10"
           >
             1-min video ↗
@@ -146,8 +146,9 @@ export default function Deck() {
           ))}
         </div>
         <p className="mt-8 font-grotesk text-base text-paper/55">
-          Rain enforces all three at authorization — not our code. That&rsquo;s what makes hands-off buying
-          safe enough to run while you sleep.
+          The MCC lock and single-use retirement are enforced by Rain at authorization — verified live, not
+          our code. The cap is set on the card at issuance, and our policy layer refuses over-cap requests too.
+          That&rsquo;s what makes hands-off buying safe enough to run while you sleep.
         </p>
       </Slide>
 
@@ -163,7 +164,7 @@ export default function Deck() {
               "Mint & buy",
               "POST /issuing/users/{id}/cards/scoped → a real Rain card capped + MCC-locked, then authorize the charge.",
             ],
-            ["Settle", "The receipt is written to our SpendLedger contract on Monad — a tamper-proof record."],
+            ["Receipt", "A record of the purchase is written to our SpendLedger contract on Monad — tamper-proof."],
           ].map(([t, d], i) => (
             <li key={t} className="flex gap-5 rounded-2xl border border-paper/12 bg-paper/[0.04] p-5">
               <span className="font-mono text-2xl text-rain">{i + 1}</span>

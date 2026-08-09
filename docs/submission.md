@@ -8,7 +8,7 @@ Deadline **Sun Aug 9, 12:00 PM ET**. Form: Encode dashboard → **Submit Now**.
 |---|---|
 | Link to Code | `https://github.com/rvnikita/nightcap` |
 | Link to Presentation | `https://nightcap-two.vercel.app/deck` |
-| Link to Demo Video | `https://nightcap-two.vercel.app/nightcap-demo.mp4` *(swap for a YouTube URL if we upload one)* |
+| Link to Demo Video | `https://youtu.be/wKuJl1O6kAo` (unlisted YouTube) |
 | Live Demo Link | `https://nightcap-two.vercel.app` |
 
 ---
@@ -41,6 +41,6 @@ Deadline **Sun Aug 9, 12:00 PM ET**. Form: Encode dashboard → **Submit Now**.
 
 **What we learned along the way.** Two findings shaped the build. First, scoped cards really are single-use — after one authorization the card's status flips to canceled — so we designed around minting per purchase rather than treating it as a limitation; it turns out to be the feature that makes delegation safe. Second, the MCC allow-list produces a clean, reliable decline (`scoped_card_mcc_not_allowed`) at authorization, which is the guardrail we lean on to demonstrate that Rain, not our code, is enforcing the boundary. We also hit a genuinely instructive bug: our first version kept the watch state in server memory, which silently broke on Vercel because serverless requests land on different function instances. We moved to a client-authoritative design with a stateless purchase endpoint, which is both simpler and correct.
 
-**Live demo:** https://nightcap-two.vercel.app · **Deck:** https://nightcap-two.vercel.app/deck · **Video:** https://nightcap-two.vercel.app/nightcap-demo.mp4 · **Code:** https://github.com/rvnikita/nightcap
+**Live demo:** https://nightcap-two.vercel.app · **Deck:** https://nightcap-two.vercel.app/deck · **Video:** https://youtu.be/wKuJl1O6kAo · **Code:** https://github.com/rvnikita/nightcap
 
 **Contact:** Nikita Rvachev — nikita@rvachev.org · github.com/rvnikita · Discord `rvnikita`
